@@ -1,2 +1,3 @@
-# fallstudieLB01
-Fallstudie LB01 Sabrina Westhauser und Ivo Gurtner
+# fallstudie
+Fallstudie Sabrina Westhauser und Ivo Gurtner
+© All rights reserved.
