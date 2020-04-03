@@ -1,5 +1,7 @@
 package ch.noseryoung.uk.domainModels.article;
 
+import ch.noseryoung.uk.domainModels.article.dto.ArticleDTO;
+import ch.noseryoung.uk.domainModels.article.dto.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,52 +14,53 @@ import java.util.List;
 public class ArticleController {
 
     private ArticleService articleService;
+    private ArticleMapper articleMapper;
 
-    @Autowired
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, ArticleMapper articleMapper) {
         this.articleService = articleService;
+        this.articleMapper = articleMapper;
     }
 
     @GetMapping("")
     public @ResponseBody
-    ResponseEntity<List<Article>> getAll(){
-        return new ResponseEntity<>(articleService.getAllProducts(), HttpStatus.OK);
+    ResponseEntity<List<ArticleDTO>> getAll(){
+        return new ResponseEntity<>(articleMapper.toDTOs(articleService.getAllProducts()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Article> getById(@PathVariable String id){
-        return new ResponseEntity<>(articleService.getArticleById(id), HttpStatus.OK);
+    ResponseEntity<ArticleDTO> getById(@PathVariable String id){
+        return new ResponseEntity<>(articleMapper.toDTO(articleService.getArticleById(id)), HttpStatus.OK);
     }
 
     @GetMapping("/asc")
     public @ResponseBody
-    ResponseEntity<List<Article>> getAllAsc(){
-        return new ResponseEntity<>(articleService.sortListByValueAsc(), HttpStatus.OK);
+    ResponseEntity<List<ArticleDTO>> getAllAsc(){
+        return new ResponseEntity<>(articleMapper.toDTOs(articleService.sortListByValueAsc()), HttpStatus.OK);
     }
 
     @GetMapping("/desc")
     public @ResponseBody
-    ResponseEntity<List<Article>> getAllDesc(){
-        return new ResponseEntity<>(articleService.sortListByValueDesc(), HttpStatus.OK);
+    ResponseEntity<List<ArticleDTO>> getAllDesc(){
+        return new ResponseEntity<>(articleMapper.toDTOs(articleService.sortListByValueDesc()), HttpStatus.OK);
     }
 
     @PostMapping("")
     public @ResponseBody
-    ResponseEntity<Article> create(@RequestBody Article article){
-        return new ResponseEntity<>(articleService.createNewArticle(article), HttpStatus.CREATED);
+    ResponseEntity<ArticleDTO> create(@RequestBody ArticleDTO articleDTO){
+        return new ResponseEntity<>(articleMapper.toDTO(articleService.createNewArticle(articleMapper.fromDTO(articleDTO))), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Article> update(@PathVariable String id, @RequestBody Article article){
-        return new ResponseEntity<>(articleService.updateArticle(article, id), HttpStatus.OK);
+    ResponseEntity<ArticleDTO> update(@PathVariable String id, @RequestBody ArticleDTO articleDTO){
+        return new ResponseEntity<>(articleMapper.toDTO(articleService.updateArticle(articleMapper.fromDTO(articleDTO), id)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Article> delete(@PathVariable String id){
-        return new ResponseEntity<>(articleService.deleteOneArticle(id), HttpStatus.NO_CONTENT);
+    ResponseEntity<ArticleDTO> delete(@PathVariable String id){
+        return new ResponseEntity<>(articleMapper.toDTO(articleService.deleteOneArticle(id)), HttpStatus.NO_CONTENT);
     }
 
 

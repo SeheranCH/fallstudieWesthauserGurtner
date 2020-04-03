@@ -42,11 +42,8 @@ public class Auction {
     private List<Bid> bids;
      */
 
-
-
     public Auction() {
     }
-
 
     public Auction(String description, double fixedPrice, double startingPrice, boolean isPublic, Article article, User user) {
         this.description = description;

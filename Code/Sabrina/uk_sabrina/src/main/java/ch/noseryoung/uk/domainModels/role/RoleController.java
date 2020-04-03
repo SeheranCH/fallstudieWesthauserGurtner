@@ -1,5 +1,7 @@
 package ch.noseryoung.uk.domainModels.role;
 
+import ch.noseryoung.uk.domainModels.role.dto.RoleDTO;
+import ch.noseryoung.uk.domainModels.role.dto.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,40 +13,50 @@ import java.util.List;
 @RequestMapping("/roles")
 public class RoleController {
 
-    // The newly created service to be injected
+    // The service to be injected
     private RoleService roleService;
 
-    // Injecting the dependency via constructor
+    // The mapper to be injected
+    private RoleMapper roleMapper;
+
+    // Injecting the dependencies via constructor
     @Autowired
-    public RoleController(RoleService roleService) {
+    public RoleController(RoleService roleService, RoleMapper roleMapper) {
         this.roleService = roleService;
+        this.roleMapper = roleMapper;
     }
+
+    // Keep in mind that all the responses and requests are now DTOs
 
     // This endpoint creates a new role with the data given
     @PostMapping({"/", ""})
-    public ResponseEntity<Role> create(@RequestBody Role role) {
-        return new ResponseEntity<>(roleService.create(role), HttpStatus.CREATED);
+    public ResponseEntity<RoleDTO> create(@RequestBody RoleDTO roleDTO) {
+        // In this line we now convert the DTO to an business object first to create it via the service, and then back into a DTO to send it back as a response
+        return new ResponseEntity<>(roleMapper.toDTO(roleService.create(roleMapper.fromDTO(roleDTO))), HttpStatus.CREATED);
     }
 
     // This endpoint retrieves all roles as a list
     @GetMapping({"/", ""})
-    public ResponseEntity<List<Role>> getAll() {
-        return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<RoleDTO>> getAll() {
+        // In this line we now convert the list of business objects into a list of DTOs
+        return new ResponseEntity<>(roleMapper.toDTOs(roleService.findAll()), HttpStatus.OK);
     }
 
     // This endpoint retrieves a single role by it's id
     @GetMapping("/{id}")
-    public ResponseEntity<Role> getById(@PathVariable int id) {
-        return new ResponseEntity<>(roleService.findById(id), HttpStatus.OK);
+    public ResponseEntity<RoleDTO> getById(@PathVariable int id) {
+        // In this line we now convert the business object into a DTO
+        return new ResponseEntity<>(roleMapper.toDTO(roleService.findById(id)), HttpStatus.OK);
     }
 
     // This endpoint updates an existing role with the id and data given
     @PutMapping("/{id}")
-    public ResponseEntity<Role> updateById(@PathVariable int id, @RequestBody Role role) {
-        return new ResponseEntity<>(roleService.updateById(id, role), HttpStatus.OK);
+    public ResponseEntity<RoleDTO> updateById(@PathVariable int id, @RequestBody RoleDTO roleDTO) {
+        return new ResponseEntity<>(roleMapper.toDTO(roleService.updateById(id, roleMapper.fromDTO(roleDTO))), HttpStatus.OK);
     }
 
     // This endpoint deletes an existing role with the id given
+    // Nothing was changed in this end point
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
         roleService.deleteById(id);
