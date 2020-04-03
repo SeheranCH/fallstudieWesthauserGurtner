@@ -59,7 +59,7 @@ public class AuctionServiceImpl implements AuctionService{
         } else throw new NoSuchElementException("No value present");
     }
 
-    public List<Auction> findAllByUser(int userId){
+    public List<Auction> findAllByUser(String userId){
         List<Auction> auctionList = auctionRespository.findAllByUser(userService.findById(userId));
         return auctionList;
     }

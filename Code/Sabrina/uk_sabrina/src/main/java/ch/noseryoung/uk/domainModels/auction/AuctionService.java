@@ -9,7 +9,7 @@ public interface AuctionService {
     public Auction createNewAuction(Auction auction);
     public Auction updateAuction(Auction auction, String id);
     public Auction deleteOneAuction(String id);
-    public List<Auction> findAllByUser(int userId);
+    public List<Auction> findAllByUser(String userId);
    // public Auction getAllBids(String id);
 
 }

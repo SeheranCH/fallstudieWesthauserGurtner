@@ -36,7 +36,7 @@ public class AuctionController {
 
     @GetMapping("/{userId}")
     public  @ResponseBody
-    ResponseEntity<List<AuctionDTO>> getAllByUserId(@PathVariable int userId){
+    ResponseEntity<List<AuctionDTO>> getAllByUserId(@PathVariable String userId){
         return new ResponseEntity<>(auctionMapper.toDTOs(auctionService.findAllByUser(userId)), HttpStatus.OK);
     }
 

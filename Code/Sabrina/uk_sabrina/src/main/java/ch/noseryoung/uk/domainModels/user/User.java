@@ -1,64 +1,135 @@
 package ch.noseryoung.uk.domainModels.user;
 
-import ch.noseryoung.uk.domainModels.auction.Auction;
 import ch.noseryoung.uk.domainModels.role.Role;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
-// This is an example class on how a domain model could be built
-// These annotations show hibernate that this is an entity
-@Entity
-// This annotation defines this entity as it's own table with it's given name
-// We can also not define it's name, but then it'd take the name of the class itself and that wouldn't be best practice
-// This naming pattern is an exception and not best practice, as the term user is reserved we went with the plural
-@Table(name = "users")
-public class User {
+    @Entity
+    @Table(name = "users")
+    public class User {
 
-    // Regular attributes
-    // The primary key, this annotation defines that this is a primary key:
-    @Id
-    // This annotation makes sure that our id gets auto-incremented
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // This annotation simply defines that this attribute has it's own column and how that column is called
-    @Column(name = "id")
-    private int id;
+        @Id
+        @GeneratedValue(generator = "system-uuid")
+        @GenericGenerator(name = "system-uuid", strategy = "uuid")
+        @Generated(GenerationTime.ALWAYS)
+        @Column(name = "id")
+        private String userId;
+        @Column(name = "fistname")
+        private String firstName;
+        @Column(name = "lastname")
+        private String lastName;
+        @Column(name = "email")
+        private String email;
+        @Column(name = "password")
+        private String password;
+        @Column(name = "username")
+        private String username;
+        @Column(name = "locked")
+        @Type(type = "org.hibernate.type.NumericBooleanType")
+        private Boolean locked;
+        @Column(name = "enabled")
+        @Type(type = "org.hibernate.type.NumericBooleanType")
+        private Boolean enabled;
 
-    @Column(name = "fistname")
-    private String firstName;
-    @Column(name = "lastname")
-    private String lastName;
+        @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(
+                name = "users_roles",
+                joinColumns = @JoinColumn(name = "users_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id")
+        )
+        private Set<Role> roles;
 
-    // In this example the name has not been defined, if you do this hibernate will plainly use the name of the variable itself
-    // The nullable parameter defines if this attribute can be null in the database
-    @Column(nullable = false)
-    private String username;
+        public User() {}
 
-    // In this example the name has not been defined, if you do this hibernate will plainly use the name of the variable itself
-    // The nullable parameter defines if this attribute can be null in the database
-    @Column(nullable = false)
-    private String password;
 
-    // Example of a foreign key
-    // This annotation defines the relationship between the two entities
-    // The fetch type is also definable, default is eager
-    @ManyToMany(fetch = FetchType.EAGER)
-    // This annotation defines the table between the two entities
-    // This annotation is only necessary in many to many relations
-    // Firstly we define the name of the table
-    // Secondly we define the foreign key which leads to this entity
-    // Lastly we define the foreign key which leads to the other entity we possess a relation to
-    // In many to many relations the data type is preferred to be a Set for performance, in one to many and many to one
-    // relations the preferred data type are lists.
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+        public User(String firstName, String lastName, String email, String password, String username, Boolean locked, Boolean enabled, Set<Role> roles) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.password = password;
+            this.username = username;
+            this.locked = locked;
+            this.enabled = enabled;
+            this.roles = roles;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public Set<Role> getRoles() {
+            return roles;
+        }
+
+        public void setRoles(Set<Role> roles) {
+            this.roles = roles;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public Boolean getLocked() {
+            return locked;
+        }
+
+        public void setLocked(Boolean locked) {
+            this.locked = locked;
+        }
+
+        public Boolean getEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(Boolean enabled) {
+            this.enabled = enabled;
+        }
+    }
 
     // TODO, create attribute once the auction entity has been made
     // @OneToMany(mappedBy = "user")
@@ -66,65 +137,6 @@ public class User {
 
     // Attributes necessary for use in a spring boot environment
     // Simple column annotation with naming
-    @Column(name = "account_expiration_date")
-    private LocalDate accountExpirationDate;
-
-    // Simple column annotation with naming
-    @Column(name = "credentials_expiration_date")
-    private LocalDate credentialsExpirationDate;
-
-    // Simple column annotation without naming
-    @Column
-    // This annotation defines as what kind of data type this attribute should be persisted at in the database
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean locked;
-
-    // Simple column annotation without naming
-    @Column
-    // This annotation defines as what kind of data type this attribute should be persisted at in the database
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean enabled;
-
-    // Standard empty constructor
-    public User() {}
-
-    // Getters and setters
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public User setRoles(Set<Role> roles) {
-        this.roles = roles;
-        return this;
-    }
 
     // TODO, create getters and setters once the auction entity has been created
 
@@ -140,55 +152,5 @@ public class User {
 
      */
 
-    public LocalDate getAccountExpirationDate() {
-        return accountExpirationDate;
-    }
 
-    public User setAccountExpirationDate(LocalDate accountExpirationDate) {
-        this.accountExpirationDate = accountExpirationDate;
-        return this;
-    }
 
-    public LocalDate getCredentialsExpirationDate() {
-        return credentialsExpirationDate;
-    }
-
-    public User setCredentialsExpirationDate(LocalDate credentialsExpirationDate) {
-        this.credentialsExpirationDate = credentialsExpirationDate;
-        return this;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public User setLocked(Boolean locked) {
-        this.locked = locked;
-        return this;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public User setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-}

@@ -4,14 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 // This is an example repository with an example query
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
 
-    // This is an example query, it isn't actually used
-    // It exists to show the basic syntax of the generated queries
-    public User findByUsernameAndLockedFalse(String username);
-    // public User findAllByAuctionsAnd
-
+    Optional<User> findByEmail(String email);
 }
