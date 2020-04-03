@@ -37,8 +37,10 @@ public class Auction {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    /*
    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
     private List<Bid> bids;
+     */
 
 
 

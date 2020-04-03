@@ -36,7 +36,6 @@ public class User {
     // The nullable parameter defines if this attribute can be null in the database
     @Column(nullable = false)
     private String username;
-    //test
 
     // In this example the name has not been defined, if you do this hibernate will plainly use the name of the variable itself
     // The nullable parameter defines if this attribute can be null in the database
@@ -62,8 +61,8 @@ public class User {
     private Set<Role> roles;
 
     // TODO, create attribute once the auction entity has been made
-    @OneToMany(mappedBy = "user")
-     private List<Auction> auctions;
+    // @OneToMany(mappedBy = "user")
+    // private List<Auction> auctions;
 
     // Attributes necessary for use in a spring boot environment
     // Simple column annotation with naming
@@ -130,6 +129,7 @@ public class User {
     // TODO, create getters and setters once the auction entity has been created
 
 
+    /*
     public List<Auction> getAuctions() {
         return auctions;
     }
@@ -137,6 +137,8 @@ public class User {
     public void setAuctions(List<Auction> auctions) {
         this.auctions = auctions;
     }
+
+     */
 
     public LocalDate getAccountExpirationDate() {
         return accountExpirationDate;

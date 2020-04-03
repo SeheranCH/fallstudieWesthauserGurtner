@@ -57,11 +57,13 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /*
     @Override
     public List<Auction> getAllBidOnAuction(int userId) {
         Optional<User> user = userRepository.findById(userId);
         List<Auction> auctionList = user.get().getAuctions();
         return auctionList;
     }
+     */
 
 }

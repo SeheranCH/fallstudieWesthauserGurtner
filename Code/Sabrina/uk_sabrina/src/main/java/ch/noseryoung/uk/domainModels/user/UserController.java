@@ -39,13 +39,13 @@ public class UserController {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
-
+    /*
     @GetMapping("/{id}/bidOnAuctions")
     public ResponseEntity<List<Auction>> getAllBidOnAuctionsByUser(@PathVariable int id){
         return new ResponseEntity<>(userService.getAllBidOnAuction(id), HttpStatus.OK);
     }
 
-
+     */
 
     // This endpoint updates an existing user with the id and data given
     @PutMapping("/{id}")

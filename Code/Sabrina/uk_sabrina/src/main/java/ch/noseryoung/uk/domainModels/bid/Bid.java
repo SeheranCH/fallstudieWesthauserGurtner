@@ -21,22 +21,21 @@ public class Bid {
     @Column(name = "amount")
     private double amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "auction_id", referencedColumnName = "id")
     private Auction auction;
 
-    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-     */
 
     public Bid() {}
 
-    public Bid(double amount, Auction auction) {
+    public Bid(double amount, Auction auction, User user) {
         this.amount = amount;
         this.auction = auction;
+        this.user = user;
     }
 
     public String getId() {
@@ -64,7 +63,7 @@ public class Bid {
         this.auction = auction;
     }
 
-    /*
+
 
     public User getUser() {
         return user;
@@ -74,5 +73,5 @@ public class Bid {
         this.user = user;
     }
 
-     */
+
 }
