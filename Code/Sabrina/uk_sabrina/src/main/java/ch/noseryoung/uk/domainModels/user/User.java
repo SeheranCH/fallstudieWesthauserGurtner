@@ -36,6 +36,7 @@ public class User {
     // The nullable parameter defines if this attribute can be null in the database
     @Column(nullable = false)
     private String username;
+    //test
 
     // In this example the name has not been defined, if you do this hibernate will plainly use the name of the variable itself
     // The nullable parameter defines if this attribute can be null in the database
