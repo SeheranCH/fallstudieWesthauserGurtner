@@ -85,6 +85,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    // This method finds a user by it's username, it's private as it's never needed outside this class
+    private User findByUsername(String username) {
+        return userRepository.findByUsernameAndLockedFalse(username);
+    }
+
     /*
     @Override
     public List<Auction> getAllBidOnAuction(int userId) {

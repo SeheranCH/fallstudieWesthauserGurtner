@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
 
@@ -40,7 +40,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserMapper userMapper;
 
     @Autowired
-    public SecurityConfiguration(
+    public SecurityConfig(
             UserService userService,
             BCryptPasswordEncoder pwEncoder,
             @Qualifier("webErrorLogger") Logger errorLogger,
