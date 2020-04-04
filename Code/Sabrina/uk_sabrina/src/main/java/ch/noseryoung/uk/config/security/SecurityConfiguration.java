@@ -23,7 +23,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -91,8 +90,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().
                 authorizeRequests()
                 // These end points are permitted without login
-                .antMatchers("/login", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",
-                        "/webjars/**", "/swagger.yaml", "/users")
+                .antMatchers("/login", "/users", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",
+                        "/webjars/**", "/swagger.yaml", "/**")
                 .permitAll()
                 .anyRequest().authenticated().and()
                 // From here on out all requests will be filtered by the authorization of the authenticated user

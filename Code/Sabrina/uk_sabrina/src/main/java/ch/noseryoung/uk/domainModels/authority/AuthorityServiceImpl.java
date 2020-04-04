@@ -31,13 +31,13 @@ public class AuthorityServiceImpl implements AuthorityService {
 
     // The logic for retrieving a single authority with a given id
     @Override
-    public Authority findById(int id) {
+    public Authority findById(String id) {
         return authorityRepository.findById(id).get();
     }
 
     // The logic for updating an existing authority with a given id and data
     @Override
-    public Authority updateById(int id, Authority authority) {
+    public Authority updateById(String id, Authority authority) {
         if(authorityRepository.existsById(id)) {
             authority.setId(id);
             authorityRepository.save(authority);
@@ -50,7 +50,7 @@ public class AuthorityServiceImpl implements AuthorityService {
 
     // The logic for deleting an authority with a given id
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         authorityRepository.deleteById(id);
     }
 }

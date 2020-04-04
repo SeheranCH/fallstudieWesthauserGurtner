@@ -44,14 +44,14 @@ public class AuthorityController {
 
     // This endpoint retrieves a single authority by it's id
     @GetMapping("/{id}")
-    public ResponseEntity<AuthorityDTO> getById(@PathVariable int id) {
+    public ResponseEntity<AuthorityDTO> getById(@PathVariable String id) {
         // In this line we now convert the business object into a DTO
         return new ResponseEntity<>(authorityMapper.toDTO(authorityService.findById(id)), HttpStatus.OK);
     }
 
     // This endpoint updates an existing authority with the id and data given
     @PutMapping("/{id}")
-    public ResponseEntity<AuthorityDTO> updateById(@PathVariable int id, @RequestBody AuthorityDTO authorityDTO) {
+    public ResponseEntity<AuthorityDTO> updateById(@PathVariable String id, @RequestBody AuthorityDTO authorityDTO) {
         // In this line we now convert the DTO to an business object first to create it via the service, and then back into a DTO to send it back as a response
         return new ResponseEntity<>(authorityMapper.toDTO(authorityService.updateById(id, authorityMapper.fromDTO(authorityDTO))), HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class AuthorityController {
     // This endpoint deletes an existing authority with the id given
     // Nothing was changed in this end point
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
         authorityService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

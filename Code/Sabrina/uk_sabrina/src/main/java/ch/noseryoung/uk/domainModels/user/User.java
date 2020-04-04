@@ -114,7 +114,7 @@ import java.util.Set;
             this.username = username;
         }
 
-        public Boolean getLocked() {
+        public Boolean isLocked() {
             return locked;
         }
 
@@ -122,7 +122,7 @@ import java.util.Set;
             this.locked = locked;
         }
 
-        public Boolean getEnabled() {
+        public Boolean isEnabled() {
             return enabled;
         }
 

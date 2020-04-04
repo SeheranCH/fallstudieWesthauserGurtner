@@ -27,51 +27,13 @@ public class UserDTO {
     }
 
 
-    public String getId() {
+    public String getUserId() {
         return userId;
     }
 
-    public UserDTO setId(String userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
-        return this;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public UserDTO setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public UserDTO setRoles(Set<Role> roles) {
-        this.roles = roles;
-        return this;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public UserDTO setLocked(Boolean locked) {
-        this.locked = locked;
-        return this;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public UserDTO setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
 
     public String getFirstName() {
         return firstName;
@@ -89,11 +51,43 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

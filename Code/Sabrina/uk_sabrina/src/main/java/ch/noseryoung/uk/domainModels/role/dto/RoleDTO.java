@@ -6,19 +6,22 @@ import java.util.Set;
 
 public class RoleDTO {
 
-    private int id;
+    // Representative attributes, make sure they are called the same way as the attribute that they represent
+    private String id;
 
     private String name;
 
     private Set<Authority> authorities;
 
+    // Standard empty constructor
     public RoleDTO() {}
 
-    public int getId() {
+    // Standard getters and setters
+    public String getId() {
         return id;
     }
 
-    public RoleDTO setId(int id) {
+    public RoleDTO setId(String id) {
         this.id = id;
         return this;
     }

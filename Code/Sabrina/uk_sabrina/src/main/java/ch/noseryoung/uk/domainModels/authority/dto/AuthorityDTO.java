@@ -2,7 +2,8 @@ package ch.noseryoung.uk.domainModels.authority.dto;
 
 public class AuthorityDTO {
 
-    private int id;
+    // Representative attributes, make sure they are called the same way as the attribute that they represent
+    private String id;
 
     private String name;
 
@@ -10,11 +11,11 @@ public class AuthorityDTO {
     public AuthorityDTO() {}
 
     // Standard getters and setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public AuthorityDTO setId(int id) {
+    public AuthorityDTO setId(String id) {
         this.id = id;
         return this;
     }
@@ -27,4 +28,5 @@ public class AuthorityDTO {
         this.name = name;
         return this;
     }
+
 }

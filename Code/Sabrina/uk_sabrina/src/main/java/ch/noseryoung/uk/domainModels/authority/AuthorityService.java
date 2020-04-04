@@ -9,10 +9,10 @@ public interface AuthorityService {
 
     List<Authority> findAll();
 
-    Authority findById(int id);
+    Authority findById(String id);
 
-    Authority updateById(int id, Authority authority);
+    Authority updateById(String id, Authority authority);
 
-    void deleteById(int id);
+    void deleteById(String id);
 
 }

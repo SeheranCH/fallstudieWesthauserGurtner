@@ -1,5 +1,7 @@
 package ch.noseryoung.uk.domainModels.role;
 
+import ch.noseryoung.uk.domainModels.user.User;
+
 import java.util.List;
 
 // This is an example service with method signatures for CRUD logic
@@ -9,10 +11,10 @@ public interface RoleService {
 
     List<Role> findAll();
 
-    Role findById(int id);
+    Role findById(String id);
 
-    Role updateById(int id, Role role);
+    Role updateById(String id, Role role);
 
-    void deleteById(int id);
+    void deleteById(String id);
 
 }

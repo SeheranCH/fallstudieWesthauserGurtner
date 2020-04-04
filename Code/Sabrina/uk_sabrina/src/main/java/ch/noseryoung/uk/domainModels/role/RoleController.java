@@ -44,21 +44,21 @@ public class RoleController {
 
     // This endpoint retrieves a single role by it's id
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> getById(@PathVariable int id) {
+    public ResponseEntity<RoleDTO> getById(@PathVariable String id) {
         // In this line we now convert the business object into a DTO
         return new ResponseEntity<>(roleMapper.toDTO(roleService.findById(id)), HttpStatus.OK);
     }
 
     // This endpoint updates an existing role with the id and data given
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDTO> updateById(@PathVariable int id, @RequestBody RoleDTO roleDTO) {
+    public ResponseEntity<RoleDTO> updateById(@PathVariable String id, @RequestBody RoleDTO roleDTO) {
         return new ResponseEntity<>(roleMapper.toDTO(roleService.updateById(id, roleMapper.fromDTO(roleDTO))), HttpStatus.OK);
     }
 
     // This endpoint deletes an existing role with the id given
     // Nothing was changed in this end point
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteById(@PathVariable String id) {
         roleService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

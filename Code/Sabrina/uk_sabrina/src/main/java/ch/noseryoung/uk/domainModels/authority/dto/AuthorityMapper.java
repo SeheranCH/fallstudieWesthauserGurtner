@@ -29,3 +29,4 @@ public interface AuthorityMapper {
     Set<AuthorityDTO> toDTOs(Set<Authority> dms);
 
 }
+

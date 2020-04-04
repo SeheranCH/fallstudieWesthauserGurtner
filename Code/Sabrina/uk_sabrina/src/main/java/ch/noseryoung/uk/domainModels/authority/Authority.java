@@ -1,5 +1,9 @@
 package ch.noseryoung.uk.domainModels.authority;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 // This is an example class on a domain model could be built
@@ -13,11 +17,15 @@ public class Authority {
     // Regular attributes
     // The primary key, this annotation defines that this is a primary key:
     @Id
-    // This annotation makes sure that our id gets auto-incremented
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // This annotation makes sure that our id gets generated
+    @GeneratedValue(generator = "system-uuid")
+    // With this annotation we define the generator for our uuid
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    // And lastly this annotation ensures when it will get generated
+    @Generated(GenerationTime.ALWAYS)
     // This annotation simply defines that this attribute has it's own column and how that column is called
     @Column(name = "id")
-    private int id;
+    private String id;
 
     // In this example the name has not been defined, if you do this hibernate will plainly use the name of the variable itself
     // The nullable parameter defines if this attribute can be null in the database
@@ -28,11 +36,11 @@ public class Authority {
     public Authority() {}
 
     // Getters and setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public Authority setId(int id) {
+    public Authority setId(String id) {
         this.id = id;
         return this;
     }
@@ -47,3 +55,4 @@ public class Authority {
     }
 
 }
+

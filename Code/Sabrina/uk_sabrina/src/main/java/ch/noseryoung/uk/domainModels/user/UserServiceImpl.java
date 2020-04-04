@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
+        user.setLocked(false);
         return userRepository.save(user);
     }
 

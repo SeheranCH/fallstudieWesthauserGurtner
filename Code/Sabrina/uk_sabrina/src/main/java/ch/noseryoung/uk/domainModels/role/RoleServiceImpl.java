@@ -29,15 +29,15 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findAll();
     }
 
-    // The logic for retrieving a single role with a given id
+    // The logic for retrieving a single authority with a given id
     @Override
-    public Role findById(int id) {
+    public Role findById(String id) {
         return roleRepository.findById(id).get();
     }
 
-    // The logic for updating an existing role with a given id and data
+    // The logic for updating an existing authority with a given id and data
     @Override
-    public Role updateById(int id, Role role) {
+    public Role updateById(String id, Role role) {
         if(roleRepository.existsById(id)) {
             role.setId(id);
             roleRepository.save(role);
@@ -48,9 +48,10 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    // The logic for deleting a role with a given id
+    // The logic for deleting an authority with a given id
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         roleRepository.deleteById(id);
     }
 }
+
