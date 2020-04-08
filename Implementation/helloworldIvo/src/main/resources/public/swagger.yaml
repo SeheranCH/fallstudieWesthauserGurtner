@@ -1,0 +1,931 @@
+# This part provides basic information about the API and the creator
+swagger: '2.0'
+info:
+  description: 'Documentation for an API'
+  version: '1.0'
+  title: 'API documentation'
+  contact:
+    name: 'Ivo Gurtner and Sabrina Westhauser'
+    email: 'ivo.gurtner@noseryoung.ch'
+host: 'localhost:8080'
+basePath: /
+
+# Here we define all of the controllers in this API
+tags:
+  - name: 'AuthorityController'
+    description: 'Endpoints for CRUD-operations with the entity "Authority"'
+  - name: 'RoleController'
+    description: 'Endpoints for CRUD-operations with the entity "Role"'
+  - name: 'UserController'
+    description: 'Endpoints for CRUD-operations with the entity "User"'
+  - name: 'ArticleController'
+    description: 'Endpoints for CRUD-operations with the entity "Article"'
+  - name: 'AuctionController'
+    description: 'Endpoints for CRUD-operations with the entity "Auction"'
+  - name: 'BidController'
+    description: 'Endpoints for CRUD-operations with the entity "Bid"'
+
+# Here we define the actual endpoints
+paths:
+
+  # AUTHORITY
+  # This part defines the URL to access the endpoint
+  /authorities:
+    # This part defines which http method it to be used for this endpoint
+    get:
+      # This part defines to which controller this endpoint belongs to
+      tags:
+        - AuthorityController
+      # A quick summary what this endpoint does
+      summary: 'Returns all authorities'
+      # What kind of payload to expect
+      produces:
+        - application/json
+      # The possible responses if accessed correctly
+      responses:
+        200:
+          description: OK
+          # The payload which you'll receive
+          schema:
+            type: array
+            items:
+              # A reference to an object we created below
+              $ref: '#/definitions/AuthorityDTO'
+        403:
+          description: Forbidden
+      # Is this endpoint deprecated?
+      deprecated: false
+    post:
+      tags:
+        - AuthorityController
+      summary: 'Creates a new authority'
+      # This part defines what data type needs to be sent
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      # The actual parameters
+      parameters:
+        # Where is this parameter?
+        - in: body
+          # The name of the entity
+          name: authority
+          # Is it required?
+          required: true
+          # A short description of the entity
+          description: "The new authority's data"
+          # The actual entity
+          schema:
+            # A reference to the entity
+            $ref: '#/definitions/AuthorityDTO'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/AuthorityDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+      deprecated: false
+  /authorities/{id}:
+    get:
+      tags:
+        - AuthorityController
+      summary: 'Returns a single authority with the provided ID'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/AuthorityDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - AuthorityController
+      summary: 'Updates the authority with the provided ID'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+        - in: body
+          name: authority
+          description: "The updated users data"
+          required: true
+          schema:
+            $ref: '#/definitions/AuthorityDTO'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/AuthorityDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - AuthorityController
+      summary: 'Deletes an authority with the provided ID'
+      produces:
+        - none
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        204:
+          description: No Content
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+
+  # All the following endpoints are built in the same way as the previous one
+  # for questions check the endpoints above
+
+  # ROLE
+  /roles:
+    get:
+      tags:
+        - RoleController
+      summary: 'Returns all roles'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RoleDTO'
+        403:
+          description: Forbidden
+      deprecated: false
+    post:
+      tags:
+        - RoleController
+      summary: 'Creates a new role'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          required: true
+          description: "The new roles data"
+          schema:
+            $ref: '#/definitions/RoleDTO'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/RoleDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+      deprecated: false
+  /roles/{id}:
+    get:
+      tags:
+        - RoleController
+      summary: 'Returns a single role with the provided ID'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/RoleDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - RoleController
+      summary: 'Updates the role with the provided ID'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+        - in: body
+          name: role
+          description: "The updated roles data"
+          required: true
+          schema:
+            $ref: '#/definitions/RoleDTO'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/RoleDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - RoleController
+      summary: 'Deletes a role with the provided ID'
+      produces:
+        - none
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        204:
+          description: No Content
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+
+  # USER
+  /users:
+    get:
+      tags:
+        - UserController
+      summary: 'Returns all users'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserDTO'
+        403:
+          description: Forbidden
+      deprecated: false
+    post:
+      tags:
+        - UserController
+      summary: 'Creates a new user'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          required: true
+          description: "The new users data"
+          schema:
+            $ref: '#/definitions/UserDTO'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/UserDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+      deprecated: false
+  /users/{id}:
+    get:
+      tags:
+        - UserController
+      summary: 'Returns a single user with the provided ID'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/UserDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - UserController
+      summary: 'Updates the user with the provided ID'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+        - in: body
+          name: user
+          description: "The updated users data"
+          required: true
+          schema:
+            $ref: '#/definitions/UserDTO'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/UserDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - UserController
+      summary: 'Deletes a user with the provided ID'
+      produces:
+        - none
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        204:
+          description: No Content
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+  /users/salary/{min}/{max}:
+    get:
+      tags:
+        - UserController
+      summary: 'Returns a list of users with a given range of their salary'
+      produces:
+        - application/json
+      parameters:
+        - name: min
+          in: path
+          description: 'Min. salary'
+          required: true
+          type: integer
+        - name: max
+          in: path
+          description: 'Max. salary'
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/UserDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+  # ARTICLE
+  /articles:
+    get:
+      tags:
+        - ArticleController
+      summary: 'Returns all articles'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ArticleDTO'
+        403:
+          description: Forbidden
+      deprecated: false
+    post:
+      tags:
+        - ArticleController
+      summary: 'Creates a new article'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: article
+          required: true
+          description: "The new article data"
+          schema:
+            $ref: '#/definitions/ArticleDTO'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/ArticleDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+      deprecated: false
+  /articles/{id}:
+    get:
+      tags:
+        - ArticleController
+      summary: 'Returns a single article with the provided ID'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ArticleDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - ArticleController
+      summary: 'Updates the article with the provided ID'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+        - in: body
+          name: article
+          description: "The updated article data"
+          required: true
+          schema:
+            $ref: '#/definitions/ArticleDTO'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ArticleDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - ArticleController
+      summary: 'Deletes an article with the provided ID'
+      produces:
+        - none
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        204:
+          description: No Content
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+
+  # BID
+  /bids:
+    get:
+      tags:
+        - BidController
+      summary: 'Returns all bids'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BidDTO'
+        403:
+          description: Forbidden
+      deprecated: false
+    post:
+      tags:
+        - BidController
+      summary: 'Creates a new bid'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: bid
+          required: true
+          description: "The new bid data"
+          schema:
+            $ref: '#/definitions/BidDTO'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/BidDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+      deprecated: false
+  /bids/{id}:
+    get:
+      tags:
+        - BidController
+      summary: 'Returns a single bid with the provided ID'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/BidDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - BidController
+      summary: 'Updates the bid with the provided ID'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+        - in: body
+          name: bid
+          description: "The updated bid data"
+          required: true
+          schema:
+            $ref: '#/definitions/BidDTO'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/BidDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - BidController
+      summary: 'Deletes a bid with the provided ID'
+      produces:
+        - none
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        204:
+          description: No Content
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+
+  # AUCTION
+  /auctions:
+    get:
+      tags:
+        - AuctionController
+      summary: 'Returns all auction'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AuctionDTO'
+        403:
+          description: Forbidden
+      deprecated: false
+    post:
+      tags:
+        - AuctionController
+      summary: 'Creates a new auction'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: auction
+          required: true
+          description: "The new auction data"
+          schema:
+            $ref: '#/definitions/AuctionDTO'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/AuctionDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+      deprecated: false
+  /auctions/{id}:
+    get:
+      tags:
+        - AuctionController
+      summary: 'Returns a single auction with the provided ID'
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/AuctionDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - AuctionController
+      summary: 'Updates the auction with the provided ID'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+        - in: body
+          name: auction
+          description: "The updated auction data"
+          required: true
+          schema:
+            $ref: '#/definitions/AuctionDTO'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/AuctionDTO'
+        400:
+          description: Bad Request
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - AuctionController
+      summary: 'Deletes an auction with the provided ID'
+      produces:
+        - none
+      parameters:
+        - name: id
+          in: path
+          description: 'ID of the requested entity'
+          required: true
+          type: string
+      responses:
+        204:
+          description: No Content
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+
+
+# All the DTOs
+definitions:
+  # AUTHORITY
+  # How the object is referred to
+  AuthorityDTO:
+    # What is data type this object?
+    type: object
+    # What parts of it are required?
+    required:
+      - name
+    # The effective properties of the object
+    properties:
+      id:
+        type: string
+        example: 'id'
+      name:
+        type: string
+        example: 'ADMIN'
+    # How the object is called
+    title: AuthorityDTO
+
+  # The DTOs from here on out are built in a similar way
+
+  # ROLE
+  RoleDTO:
+    type: object
+    required:
+      - name
+      - authorities
+    properties:
+      id:
+        type: string
+        example: 'id'
+      name:
+        type: string
+        example: 'Admin'
+      authorities:
+        type: array
+        items:
+          $ref: '#/definitions/AuthorityDTO'
+    title: RoleDTO
+
+  # USER
+  UserDTO:
+    type: object
+    required:
+      - email
+      - password
+      - enabled
+    properties:
+      id:
+        type: string
+        example: 'id'
+      email:
+        type: string
+        example: 'example@mail.com'
+      password:
+        type: string
+        example: 'youshouldNotPutAPasswordHere'
+      enabled:
+        type: boolean
+        example: true
+      roles:
+        type: array
+        items:
+          $ref: '#/definitions/RoleDTO'
+    title: UserDTO
+
+  # ARTICLE
+  ArticleDTO:
+    type: object
+    required:
+      - name
+      - description
+      - value
+    properties:
+      id:
+        type: string
+        example: 'id'
+      name:
+        type: string
+        example: 'Jeans'
+      description:
+        type: string
+        example: "Blue Jeans"
+      value:
+        type: double
+        example: 50.0
+    title: ArticleDTO
+
+  # AUCTION
+  AuctionDTO:
+    type: object
+    required:
+      - description
+      - fixedPrice
+      - startingPrice
+      - isPublic
+    properties:
+      id:
+        type: string
+        example: 'id'
+      description:
+        type: string
+        example: 'Jeans'
+      fixedPrice:
+        type: double
+        example: 50.0
+      startingPrice:
+        type: double
+        example: 1.0
+      isPublic:
+        type: boolean
+        example: true
+    title: AuctionDTO
+
+  # BID
+  BidDTO:
+    type: object
+    required:
+      - amount
+      - auction
+      - user
+    properties:
+      id:
+        type: string
+        example: 'id'
+      amount:
+        type: string
+        example: 10.0
+      auction:
+        type: object
+        items:
+          $ref: '#/definitions/AuctionDTO'
+      user:
+        type: object
+        items:
+          $ref: '#/definitions/UserDTO'
+    title: BidDTO
